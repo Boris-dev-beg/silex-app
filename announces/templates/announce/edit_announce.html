@@ -1,0 +1,167 @@
+{% extends 'announce/layout_details.html' %} 
+{% load static %} 
+
+{% block title %}Ajout{% endblock %}
+
+{% block link_back %}
+  <a href="{% url 'dashboard' %}" class="flex gap-1 items-center text-blue-950 font-bold hover:underline">
+    <img
+      src="{% static 'images/arrow-small-left.svg' %}"
+      alt="image de sortie"
+      class="size-8"
+    />
+    Retour
+  </a>
+{% endblock %} 
+
+{% block content %}
+<section
+  class="min-h-screen max-[340px]:w-full w-[90%] md:w-[80%] lg:w-[50%] px-5 max-[340px]:px-1 flex flex-col items-center justify-center py-4 shadow-lg shadow-gray-500"
+>
+  <span
+    class="py-4 flex flex-col justify-center items-center gap-1 w-full border-b border-gray-200"
+  >
+    <span class="flex justify-center items-center gap-1 w-full">
+        <h1 class="font-bold text-3xl max-[340px]:text-xl">Editer votre annonce</h1>
+    </span>
+  {% if form.errors %}
+  <div class="bg-red-600 text-white px-4 py-3 rounded-md w-full text-center flex flex-col gap-3 justify-center">
+    <span class="flex items-center justify-center py-1 gap-2 w-full">
+      <img src="{% static 'images/cross-circle.png' %}" alt="image de corix" class="size-7">
+      <p>Oups ! Error</p>
+    </span>
+    <ul class="flex flex-col items-start justify-center">
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li><b>{{ field.label }} : </b> {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  </span>
+  <form enctype="multipart/form-data" method="post" action="/announce/{{announce.id}}/edit" class="flex flex-col gap-2 w-full">
+    {% csrf_token %}
+    <div class="p-4 flex flex-col gap-2 w-full">
+      <div class="flex flex-col gap-2 w-full">
+        <h1
+          class="border-b border-gray-300 text-blue-800 font-bold text-xl py-2"
+        >
+          Informations Principales
+        </h1>
+        <!-- ? Titre de l'annonce -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="title" class="font-bold">Titre de l'annonce *</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="{{ announce.title }}"
+            class="outline-none border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700"
+            placeholder="Ex: Superbe studio avec forage"
+          />
+        </span>
+        <!-- ? Type de bien -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="announce_type" class="font-bold">Type de bien *</label>
+          <select
+            name="announce_type"
+            id="announce_type"
+            
+            class="outline-none border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700"
+          >
+            <option value="{{ announce.announce_type }}">{{ announce.announce_type }}</option>
+            <option value="Studio">Studio</option>
+            <option value="Chambre">Chambre</option>
+            <option value="Appartement">Appartement</option>
+            <option value="Maison">Maison</option>
+          </select>
+        </span>
+        <!-- ? Quartier -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="district" class="font-bold">Quartier *</label>
+          <select
+            name="district"
+            id="district"
+            class="outline-none border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700"
+          >
+            <option value="{{ announce.district }}">{{ announce.district }}</option>
+            <option value="Tamdja">Tamdja</option>
+            <option value="Djeleng">Djeleng</option>
+            <option value="SOCADA">SOCADA</option>
+            <option value="Mairie_rural">Mairie rural</option>
+          </select>
+        </span>
+        <!-- ? Loyer mensuel (FCFA) -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="price" class="font-bold">Loyer Mensuel *</label>
+          <input
+            type="text"
+            name="price"
+            id="price"
+            value="{{ announce.price }}"
+            class="outline-none border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700"
+            placeholder="45000"
+          />
+        </span>
+      </div>
+      <div class="flex flex-col gap-2 w-full">
+        <h1
+          class="border-b border-gray-300 text-blue-800 font-bold text-xl py-2"
+        >
+          Details & Photos
+        </h1>
+        <!-- ? Description du bien -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="description" class="font-bold">Description du bien</label>
+          <textarea
+            name="description"
+            id="description"
+            class="outline-none border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700"
+            placeholder="Decrivez les atouts (compteur, securite, proximite route)..."
+          >{{ announce.description }}</textarea>
+        </span>
+        <!-- ? Photo Principale -->
+        <span class="w-full flex flex-col gap-1">
+          <label for="main_image" class="font-bold">Photo Principale *</label>
+          <span
+            class="w-full flex items-center gap-2 border border-gray-300 rounded-md py-3 px-4 font-bold text-gray-700 overflow-hidden"
+          >
+            <img
+              src="{% static 'images/camera.svg' %}"
+              alt="image de l'appareil photo"
+              class="size-7"
+            />
+            <input
+              type="file"
+              name="main_image"
+              id="main_image"
+              value="media/{{ announce.main_image }}"
+              class="outline-none line-clamp-1"
+            />
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="w-full py-4 px-6 border-t border-gray-300 flex items-center justify-center"
+    >
+      <button
+        type="submit"
+        class="flex items-center justify-center text-center w-full md:w-[70%] text-white py-2 rounded-md font-bold text-xl bg-emerald-500"
+      >
+        <img
+          src="{% static 'images/plus-small.png' %}"
+          alt="image d'ajout"
+          class="size-10 text-white"
+        />
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock %}

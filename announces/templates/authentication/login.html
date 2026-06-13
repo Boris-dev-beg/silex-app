@@ -1,0 +1,62 @@
+{% extends 'authentication/layout.html' %} 
+{% load static %}
+
+{% block title %} Connexion {% endblock %}
+
+{% block content %} 
+<form action="{% url 'login' %}" method="post" class="px-3 py-4 flex flex-col gap-3 w-full md:max-w-md h-full shadow-lg shadow-gray-200 rounded-md bg-white">
+  {% csrf_token %}
+  {% if form.errors %}
+  <div class="bg-red-600 text-white px-4 py-3 rounded-md w-full text-center flex flex-col gap-3 items-center justify-center">
+    <span class="flex items-center justify-center py-1 gap-2">
+      <img src="{% static 'images/cross-circle.png' %}" alt="image de corix" class="size-7">
+      <p>Oups ! Error</p>
+    </span>
+      <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li><b>{{ field.label }} : </b> {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <div class="flex gap-2 items-start flex-col">
+    <label for="username">Nom d'utilisateur *</label>
+    <input
+      type="text"
+      placeholder="agent.paul"
+      id="username"
+      name="username"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <div class="flex gap-2 items-start flex-col">
+    <label for="password">Mot de passe *</label>
+    <input
+      type="password"
+      placeholder="**********"
+      id="password"
+      name="password"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <button
+  type="submit"
+    class="rounded-md bg-green-500 text-white text-xl w-full text-center px-2 py-4"
+  >
+    Se Connecter
+  </button>
+</form>
+{% endblock %} 
+{% block footer %}
+<p>Mot de passe oublié ?</p>
+<p class="flex gap-3">
+  <a href="{% url 'register' %}" class="underline">Nouveau dèmarcheur ?</a>
+  <a href="{% url 'register' %}" class="underline">Créer un compte</a>
+</p>
+{% endblock %}

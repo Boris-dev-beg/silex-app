@@ -1,0 +1,40 @@
+{% load tailwind_tags %} 
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/Gun.ico' %}"
+      type="image/x-icon"
+    />
+    {% tailwind_css %}
+    <title>App: {% block title %}{% endblock %}</title>
+  </head>
+  <body class="font-[bahnschrift] max-w-screen w-[98.9vw] min-h-screen flex flex-col items-center">
+    <header
+      class="flex items-center justify-between w-full px-6 py-3 bg-white shadow-lg shadow-gray-200 sticky top-0 z-10 rounded-md"
+    >
+      {% block link_back %}
+      <!-- ? Lien de retour -->
+      {% endblock %}
+      <a href="{% url 'index' %}" class="flex gap-1 items-center text-blue-950 font-bold">
+        <img 
+          src="{% static 'images/user.svg' %}"
+          alt="image de profil"
+          class="size-7 rounded-full"
+        />
+        Mon Compte
+      </a>
+    </header>
+    <main class="w-full flex flex-col items-center justify-center">
+      {% block content %}
+      <!-- ? Code will be there -->
+      {% endblock %}
+    </main>
+  </body>
+</html>

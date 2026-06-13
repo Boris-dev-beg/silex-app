@@ -1,0 +1,72 @@
+{% load static %}
+
+<section
+  class="relative w-full h-100 max-[330px]:h-screen flex flex-col items-center justify-center px-4 py-5"
+>
+  <img
+    src="{% static 'images/hero_banner_1.jpg' %}"
+    alt="image de hero"
+    class="absolute inset-0 object-cover size-full"
+  />
+  <div
+    class="absolute inset-0 bg-radial from-black/30 to-transparent z-10"
+  ></div>
+  <h1
+    class="text-center my-4 text-4xl md:text-5xl lg:text-6xl md:max-w-3/4 font-bold text-white z-10 line-clamp-2 max-[400px]:line-clamp-3"
+  >
+    Trouver votre prochain logement au coeur de la ville !
+  </h1>
+  <form class="flex flex-col lg:flex-row w-full md:w-3/4 gap-2 z-20">
+    <div class="flex flex-col md:flex-row w-full gap-2">
+      <span
+        class="w-full rounded-md bg-white text-gray-900 flex gap-2 items-center p-3 shadow-xs shadow-gray-500"
+      >
+        <img
+          src="{% static 'images/placeholder.png' %}"
+          alt="Image de la localisation"
+          class="size-7"
+        />
+        <select
+          name="district"
+          id="district"
+          class="w-full outline-none text-lg text-gray-800 line-clamp-1"
+        >
+          <option value="">Choisir un quartier (ex: Tamdja)...</option>
+          <option value="Tamdja">Tamdja</option>
+          <option value="Djeleng">Djeleng</option>
+          <option value="TPO">TPO</option>
+        </select>
+      </span>
+      <span
+        class="w-full rounded-md bg-white text-gray-900 flex gap-2 items-center p-3 shadow-xs shadow-gray-500"
+      >
+        <img
+          src="{% static 'images/money-bags.png' %}"
+          alt="image du sac d'argent"
+          class="size-7"
+        />
+        <input
+          type="text"
+          id="price"
+          placeholder="Prix Maximal(FCFA)..."
+          name="price"
+          class="w-full outline-none text-lg text-gray-800 line-clamp-1"
+        />
+      </span>
+    </div>
+    <button
+      class="w-full md:w-90 md:ml-auto rounded-md flex items-center justify-center gap-2 p-3 shadow-xs shadow-gray-500 bg-emerald-500 text-white text-xl"
+    >
+      <img
+        src="{% static 'images/search.png' %}"
+        alt="image de la loop"
+        class="size-7"
+      />
+      Rechercher
+    </button>
+  </form>
+  <span
+    class="max-[330px]:flex items-center justify-center hidden p-4 mt-7 bg-emerald-500 rounded-full text-white animate-bounce z-25"
+    ><img src="{% static 'images/down.png' %}" alt="down" class="size-5"
+  /></span>
+</section>

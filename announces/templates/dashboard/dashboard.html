@@ -1,0 +1,128 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} Accueil {% endblock %}
+
+{% block content %}
+<section class="flex flex-col gap-4 w-full min-h-full items-center">
+  <h1
+    class="w-full text-center text-4xl max-[340px]:text-3xl uppercase pb-4 border-b border-gray-200 text-gray-900 font-bold"
+  >
+    Tableau de bord
+  </h1>
+  <div
+    class="grid grid-cols-1 md:grid-cols-3 lg:place-items-center md:gap-4 lg:gap-8 gap-2 w-full max-[340px]:px-2"
+  >
+    <span
+      class="flex md:flex-col items-center gap-2 w-full rounded-lg bg-white border py-5 px-5 md:p-3 shadow-lg shadow-gray-100 border-emerald-500
+      "
+    >
+      <img
+        src="{% static 'images/home_verte.png' %}"
+        alt="image de la maison"
+        class="size-7 md:size-10"
+      />
+      <p class="font-semibold text-[18px]">Annonces Actives</p>
+      <h1 class="text-xl lg:text-2xl font-bold text-emerald-500">12</h1>
+    </span>
+    <span
+      class="flex md:flex-col items-center gap-2 w-full rounded-lg bg-white border py-5 px-5 md:p-3 shadow-lg shadow-gray-100 border-emerald-500
+      "
+    >
+      <img
+        src="{% static 'images/eye_vert.png' %}"
+        alt="image des vues"
+        class="size-7 md:size-10"
+      />
+      <p class="font-semibold text-[18px]">Vues Totales</p>
+      <h1 class="text-xl lg:text-2xl font-bold text-emerald-500">1204</h1>
+    </span>
+    <span
+      class="flex md:flex-col items-center gap-2 w-full rounded-lg bg-white border py-5 px-5 md:p-3 shadow-lg shadow-gray-100 border-emerald-500
+      "
+    >
+      <img
+        src="{% static 'images/envelope_verte.png' %}"
+        alt="image des message"
+        class="size-7 md:size-10"
+      />
+      <p class="font-semibold text-[18px]">Nouveaux Messages</p>
+      <h1 class="text-xl lg:text-2xl font-bold text-emerald-500">3</h1>
+    </span>
+  </div>
+  <div class="flex flex-col w-full items-center gap-4">
+    <h1
+      class="uppercase py-1 text-xl font-bold border-b border-gray-200 w-full text-gray-900 max-[340px]:text-center"
+    >
+      Vos derniéres annonces
+    </h1>
+    <div class="grid grid-cols-1 w-full gap-3 p-1 md:px-5 lg:px-10">
+      {% for announce in announces %}
+      <div
+        class="rounded-lg bg-white flex flex-col lg:flex-row items-center p-3 border border-gray-200 gap-2 shadow-lg shadow-gray-100"
+      >
+        <span class="flex max-[340px]:flex-col gap-4 items-center w-full">
+          <span class="relative h-28 md:h-35 lg:h-40 lg:w-85 w-45 max-[340px]:h-32 max-[340px]:w-full">
+            <img
+              src="../media/{{announce.main_image}}"
+              alt="{{ announce.title }}"
+              class="absolute inset-0 object-cover w-full h-full"
+            />
+          </span>
+          <span class="w-full h-full max-[340px]:h-fit flex flex-col gap-2">
+            <h1 class="text-gray-900 font-bold text-[17px] md:text-xl lg:text-2xl">
+              {{ announce.title }}
+            </h1>
+            <h1 class="flex gap-2.5 items-center font-bold md:text-xl">
+              <img
+                src="{% static 'images/placeholder.png' %}"
+                alt="image de la localisation"
+                class="size-5"
+              />
+              {{ announce.district }}
+            </h1>
+            <h1
+              class="flex gap-2.5 items-center text-[18px]"
+            >
+              <img
+                src="{% static 'images/money-bags.png' %}"
+                alt="image de l'argent"
+                class="size-5"
+              />
+              <b class="text-emerald-500 md:text-2xl font-bold">{{ announce.price|intcomma }} FCFA</b> / mois
+            </h1>
+          </span>
+        </span>
+        <span
+          class="w-full flex lg:flex-col min-[73rem]:flex-row max-[340px]:flex-col max-[340px]:gap-1.5 gap-3 items-center justify-end max-[340px]:justify-center px-5 max-[340px]:px-2"
+        >
+          <a
+            href="../announce/{{announce.id}}/edit"
+            class="px-6 py-2 flex gap-2 items-center justify-center max-[340px]:w-full rounded-lg bg-green-600 text-white font-bold"
+          >
+            <img
+              src="{% static 'images/pencil.png' %}"
+              alt="image de la modification"
+              class="size-5"
+            />
+            <h1>Modifier</h1>
+          </a>
+          <a
+            href="../announce/{{announce.id}}/delete"
+            class="px-6 py-2 flex gap-2 items-center justify-center rounded-lg bg-red-600 max-[340px]:w-full text-white font-bold"
+          >
+            <img
+              src="{% static 'images/cross-small.png' %}"
+              alt="image de la modification"
+              class="size-5"
+            />
+            <h1>Supprimer</h1>
+          </a>
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

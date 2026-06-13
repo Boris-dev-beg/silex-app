@@ -1,0 +1,14 @@
+# Environnement virtuels
+venv/
+env/
+.venv/
+
+# Fichiers python compilés
+__pycache__/
+*.pyc
+
+# Base de donnees locale (tres important de ne pas l'envoyer)
+db.sqlite3
+
+# Variable d'environnement de secrets
+.env

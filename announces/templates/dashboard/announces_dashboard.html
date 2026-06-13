@@ -1,0 +1,148 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block content %}
+<section class="flex flex-col gap-4 w-full max-h-screen h-screen items-center mb-20 md:mb-0">
+  <form
+    action="{% url 'announces_dashboard' %}"
+    method="post"
+    class="w-full px-5 pb-3 border-b border-gray-200"
+  >
+    {% csrf_token %}
+    <div
+      class="rounded-md bg-gray-200 text-gray-900 py-2 px-3 border border-gray-500 w-full flex gap-2"
+    >
+      <input
+        type="search"
+        name=""
+        id=""
+        placeholder="Quartier, budget..."
+        class="outline-none placeholder:text-gray-600 w-full"
+      />
+      <button type="submit" class="pl-3 border-l border-gray-500">
+        <img
+          src="{% static 'images/search.png' %}"
+          alt="image de la loop"
+          class="size-7"
+        />
+      </button>
+    </div>
+  </form>
+  <main class="relative flex flex-col pb-2 px-4 w-full max-h-full">
+    <a 
+        href="{% url 'add' %}"
+        class="fixed bottom-25 right-5 font-bold text-white py-2 px-5 sm:hidden flex items-center justify-center gap-3 bg-green-500 rounded-lg w-fit"
+        >
+        <img
+            src="{% static 'images/plus-small.png' %}"
+            alt="image de l'ajout"
+            class="size-7"
+        />
+        <h1>Ajouter</h1>
+    </a>
+    <div class="flex items-center justify-between pb-2">
+      <button
+        type="button"
+        class="font-bold text-white py-2 px-5 flex items-center justify-center gap-3 bg-green-500 rounded-lg w-full sm:w-fit"
+      >
+        <img
+          src="{% static 'images/search.png' %}"
+          alt="image de filtrage"
+          class="size-7"
+        />
+        <h1>Filtrer la recherche</h1>
+      </button>
+      <a 
+        href="{% url 'add' %}"
+        class="font-bold text-white py-2 px-5 hidden sm:flex items-center justify-center gap-3 bg-green-500 rounded-lg w-fit"
+      >
+        <img
+          src="{% static 'images/plus-small.png' %}"
+          alt="image de l'ajout"
+          class="size-7"
+        />
+        <h1>Ajouter</h1>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full gap-2 p-3 md:py-2 md:px-5 overflow-y-auto">
+      {% for announce in announces %}
+      <div
+        class="rounded-lg bg-white flex flex-col items-center p-3 border border-gray-200 gap-2 shadow-lg shadow-gray-100"
+      >
+        <span class="flex max-[340px]:flex-col gap-4 items-center w-full">
+          <span
+            class="relative h-28 md:h-35 w-45 max-[340px]:h-32 max-[340px]:w-full"
+          >
+            <img
+              src="/media/{{announce.main_image}}"
+              alt="{{ announce.title }}"
+              class="absolute inset-0 object-cover w-full h-full"
+            />
+          </span>
+          <span class="w-full h-full max-[340px]:h-fit flex flex-col gap-2">
+            <h1 class="flex gap-2.5 items-center text-emerald-500 text-xl border-b border-gray-200 font-bold">
+              <b class="text-2xl md:text-3xl"
+                >{{ announce.price|intcomma }} FCFA</b
+              >
+              / mois
+            </h1>
+            <h1
+              class="text-gray-900 font-bold text-xl border-b border-gray-200 py-1"
+            >
+              {{ announce.title }}
+            </h1>
+            <h1 class="flex gap-2.5 items-center font-bold md:text-xl border-b border-gray-200 py-1">
+              <img
+                src="{% static 'images/placeholder.png' %}"
+                alt="image de la localisation"
+                class="size-5"
+              />
+              {{ announce.district }}
+            </h1>
+          </span>
+        </span>
+        <span
+          class="w-full flex max-[340px]:flex-col max-[340px]:gap-1.5 gap-3 items-center justify-end max-[340px]:justify-center px-5 max-[340px]:px-2"
+        >
+          <a 
+            href="{% url 'edit' announce.id %}"
+            class="px-6 py-2 flex gap-2 items-center justify-center max-[340px]:w-full rounded-lg bg-green-500 text-white font-bold"
+          >
+            <img
+              src="{% static 'images/pencil.png' %}"
+              alt="image de la modification"
+              class="size-5"
+            />
+            <h1>Modifier</h1>
+          </a>
+          <a
+            href="{% url 'delete' announce.id %}"
+            class="px-6 py-2 flex gap-2 items-center justify-center rounded-lg bg-red-600 max-[340px]:w-full text-white font-bold"
+          >
+            <img
+              src="{% static 'images/cross-small.png' %}"
+              alt="image de la modification"
+              class="size-5"
+            />
+            <h1>Supprimer</h1>
+          </a>
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="w-full py-2 flex items-center justify-center gap-10 px-8 border-t border-gray-200">
+        <button class="rounded-md border border-gray-200 px-4 py-2 bg-white flex items-center gap-2 justify-center">
+          <img src="{% static 'images/angle_double_left.png' %}" alt="previouse" class="size-7">
+          <h1>Precedent</h1>
+        </button>
+        <button class="rounded-md border border-gray-200 px-4 py-2 bg-white flex items-center gap-2 justify-center">
+          <h1>Suivant</h1>
+          <img src="{% static 'images/angle_double_right.png' %}" alt="next" class="size-7">
+        </button>
+    </div>
+  </main>
+</section>
+{% endblock %}

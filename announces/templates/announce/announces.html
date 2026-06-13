@@ -1,0 +1,122 @@
+{% extends "announce/layout.html" %} 
+{% load static %}
+
+{% block title %}Annonces{% endblock %} 
+
+{% block content %}
+<section class="flex-1 max-h-screen h-full w-full flex flex-col gap-3">
+  <header
+    class="w-full border-b border-gray-200 py-4 px-2 md:px-10 lg:px-30 flex items-center justify-between md:justify-center gap-3 md:gap-10"
+  >
+    <button
+      class="min-[800px]:hidden block rounded-lg py-1.5 px-3 text-center text-white bg-emerald-500 font-semibold"
+    >
+      Filtre
+    </button>
+    <form action="" method="post" class="flex justify-start md:w-100 w-full">
+      <span
+        class="rounded-lg border border-gray-200 flex items-center bg-white px-4 py-1 w-full"
+      >
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="bg-transparent py-1 px-2 text-slate-800 outline-0 w-full"
+          placeholder="Rechercher une annonce..."
+        />
+        <img
+          src="{% static 'images/search_black.png' %}"
+          alt="loop"
+          class="size-5"
+        />
+      </span>
+    </form>
+    {% if user.is_authenticated %}
+    <a
+      href="{% url 'add' %}"
+      class="font-bold max-[400px]:hidden text-white py-1 max-sm:py-1.5 px-3 flex items-center justify-center bg-emerald-400 rounded-lg w-fit hover:underline"
+    >
+      <img
+        src="{% static 'images/plus-small.png' %}"
+        alt="image de l'ajout"
+        class="size-9 max-sm:hidden"
+      />
+      <h1>Ajouter</h1>
+    </a>
+    {% endif %}
+  </header>
+  <main class="flex p-2 gap-3 h-full max-h-screen">
+    <div class="hidden min-[800px]:flex flex-col gap-4 h-full bg-white shadow shadow-gray-300">
+      <h1 class="w-full py-1.5 px-3 text-center uppercase bg-emerald-500 text-white font-bold">
+        Filtres de recherche
+      </h1>
+      <div class="flex flex-col gap-2 p-2 border-b border-gray-200">
+        <h1 class="text-emerald-500 font-bold">Type de bien : </h1>
+        <span class="flex items-center w-full gap-2">
+          <input type="radio" name="announce_type" id="studio">
+          <label for="studio">Studio</label>
+        </span>
+        <span class="flex items-center w-full gap-2">
+          <input type="radio" name="announce_type" id="appartement">
+          <label for="appartement">Appartement</label>
+        </span>
+        <span class="flex items-center w-full gap-2">
+          <input type="radio" name="announce_type" id="chambre">
+          <label for="chambre">Chambre</label>
+        </span>
+      </div>
+      <div class="flex flex-col gap-2 p-2 border-b border-gray-200">
+        <h1 class="text-emerald-500 font-bold">Quartier : </h1>
+        <select name="district" id="district" class="w-full outline-none focus:ring-2 focus:ring-emerald-500 bg-white px-2 py-1.5 border border-gray-200 rounded-xs">
+          <option value="kamkop">Kamkop</option>
+          <option value="djeleng">Djeleng</option>
+          <option value="banengo">Banengo</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-2 p-2 border-b border-gray-200">
+        <h1 class="text-emerald-500 font-bold">Budget Max (FCFA) : </h1>
+        <input type="text" name="price" id="price" placeholder="80,000" class="w-full outline-none focus:ring-2 focus:ring-emerald-500 bg-white px-2 py-1.5 border border-gray-200 rounded-xs">
+      </div>
+      <div class="p-2 flex items-center justify-center w-full">
+        <button class="bg-emerald-500 px-2 py-1 w-full rounded-xs text-white">Appliquer les filtres</button>
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col max-h-screen h-full justify-between overflow-hidden w-full">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-2 gap-3 place-items-center w-full overflow-auto h-[75vh] max-h-screen"
+      >
+        {% include 'announce/announce.html' %}
+      </div>
+      <div
+        class="w-full h-fit py-2 flex items-center justify-center gap-10 px-8 border-t border-gray-200"
+      >
+        <button
+          class="rounded-md border border-gray-200 px-4 py-2 bg-white flex items-center gap-2 justify-center"
+        >
+          <img
+            src="{% static 'images/angle_double_left.png' %}"
+            alt="previouse"
+            class="size-5"
+          />
+          <h1>Precedent</h1>
+        </button>
+        <p
+          class="rounded-md border border-gray-200 px-4 py-2 bg-white text-center"
+        >
+          1/20
+        </p>
+        <button
+          class="rounded-md border border-gray-200 px-4 py-2 bg-white flex items-center gap-2 justify-center"
+        >
+          <h1>Suivant</h1>
+          <img
+            src="{% static 'images/angle_double_right.png' %}"
+            alt="next"
+            class="size-5"
+          />
+        </button>
+      </div>
+    </div>
+  </main>
+</section>
+{% endblock %}

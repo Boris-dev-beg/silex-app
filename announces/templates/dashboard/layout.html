@@ -1,0 +1,105 @@
+{% load tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}" type="image/x-icon">
+    {% tailwind_css %}
+    <title>Dashboard : {% block title %}{% endblock %}</title>
+  </head>
+  <body class="flex flex-col max-w-screen w-full min-h-screen">
+    <header
+      class="sticky top-0 py-4 px-5 lg:px-10 bg-emerald-900 text-white flex items-center justify-between gap-3 md:gap-5 lg:gap-8 z-10 max-h-[88px] overflow-hidden"
+    >
+      <a href="{% url 'index' %}" class="hover:scale-105 rounded-full p-2 md:hidden w-20">
+        <img src="{% static 'images/angle-left.png' %}" alt="image de retour" class="size-7">
+      </a>
+      <span class="flex gap-5 items-center w-full">
+        <img
+          src="{% static 'images/logo_blanc.png' %}"
+          alt="image de la maison"
+          class="size-20"
+        />
+        <span>
+         <h1 class="font-bold text-xl">SILEX</h1>
+          <p class="italic text-gray-300">Interconnexion Immobiliere</p>
+        </span> 
+      </span>
+      <span class="mr-auto justify-start md:flex hidden">
+        <input type="search" name="announce" id="announce" placeholder="Rechecher une annonce..." class="outline-none focus:ring-2 focus:ring-slate-600 rounded-md py-2 px-3 bg-gray-200 text-gray-900 placeholder:text-gray-600 md:w-85 lg:w-140">
+      </span>
+      <span class="flex gap-3 items-center group w-14">
+        <img
+          src="{% static 'images/user.png' %}"
+          alt="image de l'utilisateur"
+          class="size-9 rounded-full p-1 border border-white"
+        />
+        <h1 class="md:flex hidden text-white font-bold group-hover:underline">Profil</h1>
+      </span>
+    </header>
+    <section class="relative flex-1 md:flex-row flex flex-col text-slate-800">
+        <aside class="min-h-screen w-50 lg:w-70 hidden md:flex flex-col justify-between px-2 py-4 bg-emerald-900 text-white">
+            <div class="flex flex-col gap-3 w-full px-4">
+                <a href="{% url 'dashboard' %}" class="flex items-center font-bold gap-3 hover:bg-emerald-700 rounded-md px-3 py-2">
+                    <img src="{% static 'images/home.png' %}" alt="image du dashboard" class="size-5">
+                    <h1>Dashboard</h1>
+                </a>
+                <a href="{% url 'announces_dashboard' %}" class="flex items-center font-bold gap-3 hover:bg-emerald-700 rounded-md px-3 py-2">
+                    <img src="{% static 'images/ballot.png' %}" alt="image du dashboard" class="size-5">
+                    <h1>Mes Annonces</h1>
+                </a>
+                <a href="{% url 'dashboard' %}" class="flex items-center font-bold gap-3 hover:bg-emerald-700 rounded-md px-3 py-2">
+                    <img src="{% static 'images/settings.png' %}" alt="image du dashboard" class="size-5">
+                    <h1>Parametre</h1>
+                </a>
+                <a href="{% url 'index' %}" class="flex items-center font-bold gap-3 hover:bg-gray-500 rounded-md my-4 px-3 py-2">
+                    <img src="{% static 'images/angle-left.png' %}" alt="image du dashboard" class="size-5">
+                    <h1>Retour a l'accueil</h1>
+                </a>
+            </div>
+            <div class="flex flex-col p-4 mb-10">
+                <a href="{% url 'logout' %}" class="flex items-center font-bold gap-3 hover:bg-red-700 rounded-md px-3 py-2">
+                    <img src="{% static 'images/user-logout.png' %}" alt="image du logout" class="size-5">
+                    <h1>Deconnexion</h1>
+                </a>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col p-4 max-[340px]:px-0 w-full bg-gray-100">
+        {% block content %}
+        <!-- ? The code will be here -->
+        {% endblock %}
+        </main>
+    </section>
+    <footer
+      class="bg-emerald-900 text-white sticky bottom-0 inset-x-0 flex items-center justify-evenly py-4 px-3 md:hidden"
+    >
+      <a href="{% url 'dashboard' %}" class="flex flex-col gap-1 items-center">
+        <img
+          src="{% static 'images/home.png' %}"
+          alt="image de la maison"
+          class="size-7"
+        />
+        <h1 class="font-bold">Dashboard</h1>
+      </a>
+      <a href="{% url 'announces_dashboard' %}" class="flex flex-col gap-1 items-center">
+        <img
+          src="{% static 'images/ballot.png' %}"
+          alt="image des annonces"
+          class="size-7"
+        />
+        <h1 class="font-bold">Annonces</h1>
+      </a>
+      <span class="flex flex-col gap-1 items-center">
+        <img
+          src="{% static 'images/settings.png' %}"
+          alt="image de la maison"
+          class="size-7"
+        />
+        <h1 class="font-bold">Config</h1>
+      </span>
+    </footer>
+  </body>
+</html>

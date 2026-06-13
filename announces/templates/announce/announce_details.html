@@ -1,0 +1,142 @@
+{% extends 'announce/layout_details.html' %} 
+{% load static %} 
+{% load humanize %} 
+
+{% block title %}Details{% endblock %} 
+
+{% block link_back %}
+  <a href="{% url 'index' %}" class="flex gap-1 items-center text-blue-950 font-bold hover:underline">
+    <img
+      src="{% static 'images/arrow-small-left.svg' %}"
+      alt="image de sortie"
+      class="size-8"
+    />
+    Retour
+  </a>
+{% endblock %} 
+
+{% block content %}
+<section class="relative shadow-lg shadow-gray-400 w-full text-slate-800">
+  <div class="px-2 py-1.5 w-full flex flex-col gap-4">
+    <div class="flex gap-3">
+      <!-- ? Image principale -->
+      <span
+        class="relative w-full lg:w-[70%] h-100 lg:h-120 max-[330px]:h-80 flex p-1 border border-gray-300"
+      >
+        <img
+          src="../media/{{announce.main_image}}"
+          alt="image Principale"
+          class="absolute inset-0 object-cover size-full"
+        />
+      </span>
+      <!-- ? Zone de contact -->
+      <div class="hidden lg:flex flex-col items-center justify-center rounded-md shadow-md shadow-gray-400 p-2 h-fit">
+        <!-- ? Preimier element -->
+      <span class="p-2 flex flex-col w-full gap-4 py-6 px-4">
+        <span
+          class="flex gap-2 items-center w-full py-2"
+        >
+          <img
+            src="{% static 'images/money-bags.png' %}"
+            alt="image de l'argent"
+            class="size-7"
+          />
+          <p class="text-emerald-500" title="Price per month">
+            <b class="font-bold text-3xl"
+              >{{ announce.price|intcomma }} FCFA
+            </b>
+            / mois
+          </p>
+        </span>
+        <a
+          href="https://wa.me/237{{announce.author.user_phone}}?text='Bonjour {{announce.author}}, je suis intereser par votre {{announce.title}}'"
+          class="bg-emerald-500 text-white flex gap-2 items-center justify-center font-bold rounded-md w-full py-2 px-6 text-xl"
+        >
+          <img
+            src="{% static 'images/whatsapp.png' %}"
+            alt="image de whatsapp"
+            class="size-7"
+          />
+          Contacter sur WhatsApp
+        </a>
+      </span>
+      <!-- ? Deuxieme element -->
+       <span class="flex flex-col gap-2 py-2 px-4 border-t border-gray-200">
+        <span class="flex items-center gap-0.5 justify-start font-bold text-xl"><img src="{% static 'images/user.svg' %}" alt="image du user" class="size-6"> <h1>Poste par: {{ announce.author }}</h1></span>
+        <span class="flex items-center gap-0.5">
+          <img src="{% static 'images/calendar.png' %}" alt="image du user" class="size-6"> 
+          <h1>Publier le : {{ announce.created_date }}</h1>
+        </span>
+       </span>
+      </div>
+    </div>
+    <div
+      class="w-full flex lg:flex-row flex-col py-2 px-4 border-y border-gray-300"
+    >
+      <div class="w-full">
+        <h1 class="font-bold text-2xl max-[330px]:text-xl">
+          {{ announce.title }}
+        </h1>
+        <span class="flex items-center gap-2 py-2">
+          <img
+            src="{% static 'images/placeholder.png' %}"
+            alt="image de la position"
+            class="size-7"
+          />
+          <p>{{ announce.district }}, Bafoussam</p>
+        </span>
+        <span
+          class="flex gap-2 items-center w-full py-2 border-y border-gray-300"
+        >
+          <img
+            src="{% static 'images/money-bags.png' %}"
+            alt="image de l'argent"
+            class="size-7"
+          />
+          <p>
+            <b class="font-bold min-[330px]:text-xl"
+              >{{ announce.price|intcomma }} FCFA
+            </b>
+            / mois
+          </p>
+        </span>
+        <span class="flex items-center gap-2 py-2 border-b border-gray-300">
+          <img
+            src="{% static 'images/placeholder.png' %}"
+            alt="image de la position"
+            class="size-7"
+          />
+          <p class="font-bold">Type: {{ announce.announce_type }}</p>
+        </span>
+      </div>
+      <span class="w-3/5">
+        <span class="flex items-center gap-2 pt-2 w-full">
+          <img
+            src="{% static 'images/placeholder.png' %}"
+            alt="image de la position"
+            class="size-7"
+          />
+          <p class="font-bold">Description :</p>
+        </span>
+        <p class="line-clamp-3 py-2 px-6">{{ announce.description }}</p>
+      </span>
+    </div>
+  </div>
+  <div
+    class="flex items-center justify-center w-full px-8 py-4 lg:absolute inset-x-0 bottom-10 lg:hidden"
+  >
+    <a
+      href="https://wa.me/237{{announce.author.user_phone}}?text='Bonjour {{announce.author}}, je suis intereser par votre {{announce.title}}'"
+      class="bg-emerald-500 text-white flex gap-2 items-center justify-center font-bold rounded-md w-full lg:w-[50%] py-2 max-[330px]:px-4 text-xl line-clamp-1"
+    >
+      <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="image de whatsapp"
+        class="size-7"
+      />
+      <b class="max-[330px]:hidden">Contacter sur </b> WhatsApp
+    </a>
+  </div>
+</section>
+
+{% endblock %}

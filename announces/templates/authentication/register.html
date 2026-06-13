@@ -1,0 +1,90 @@
+{% extends 'authentication/layout.html' %} 
+{% load static %}
+
+{% block title %} Enregistrement {% endblock %}
+
+{% block content %} 
+<form action="{% url 'register' %}" method="post" class="md:px-3 md:max-w-md py-4 flex flex-col gap-6 w-full h-full shadow-lg shadow-gray-200 rounded-md bg-white">
+  {% csrf_token %}
+  {% if form %}
+  <div class="bg-red-600 text-white px-4 py-3 rounded-md w-full text-center flex flex-col gap-3 items-center justify-center">
+    <span class="flex items-center justify-center py-2 gap-2">
+      <img src="{% static 'images/cross-circle.png' %}" alt="image de corix" class="size-7">
+      <p>Oups ! Erreur</p>
+    </span>
+      <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li><b>{{ field.label }} : </b> {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <div class="flex flex-col gap-2 items-start">
+    <label for="username">Nom d'utilisateur *</label>
+    <input
+      type="text"
+      placeholder="agent.paul"
+      id="username"
+      name="username"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <div class="flex flex-col gap-2 items-start">
+    <label for="email">Email *</label>
+    <input
+      type="email"
+      placeholder="john@example.com"
+      id="email"
+      name="email"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <div class="flex flex-col gap-2 items-start">
+    <label for="user_phone">Télèphone *</label>
+    <input
+      type="text"
+      placeholder="6XXXXXXXX"
+      id="user_phone"
+      name="user_phone"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <div class="flex flex-col gap-2 items-start">
+    <label for="password1">Mot de passe *</label>
+    <input
+      type="password"
+      placeholder="**********"
+      id="password1"
+      name="password1"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <div class="flex flex-col gap-2 items-start">
+    <label for="password2">Confirmer *</label>
+    <input
+      type="password"
+      placeholder="**********"
+      id="password2"
+      name="password2"
+      class="border border-gray-200 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-green-500 w-full"
+    />
+  </div>
+  <button
+    class="rounded-md bg-green-500 text-white text-xl w-full text-center px-2 py-4"
+  >
+    S'enregistrer
+  </button>
+</form>
+{% endblock %} 
+{% block footer %}
+<p class="flex gap-3">
+  <a href="{% url 'login' %}" class="underline">Deja un Compte ?</a>
+  <a href="{% url 'login' %}" class="underline">Connectez-vous </a>
+</p>
+{% endblock %}
