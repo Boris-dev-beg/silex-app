@@ -34,10 +34,10 @@ urlpatterns = [
     # ! URLs de la page d'annonces
     path('announces/', views.announces, name='announces'),
     # ! URLs du CRUD des annonces
-    path('/announce/<int:id>', views.details, name='details'),
+    path('announce/<int:id>', views.details, name='details'),
     path('announce/<int:id>/edit', views.edit_announce, name='edit'),
     path('announce/<int:id>/delete', views.delete_announce, name='delete'),
-    path('/announce/add', views.add_announce, name='add'),
+    path('announce/add', views.add_announce, name='add'),
     # ! URLs du dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/announces/', views.announces_dashboard, name='announces_dashboard'),
