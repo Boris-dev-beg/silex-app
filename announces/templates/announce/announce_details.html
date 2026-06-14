@@ -23,11 +23,19 @@
       <span
         class="relative w-full lg:w-[70%] h-100 lg:h-120 max-[330px]:h-80 flex p-1 border border-gray-300"
       >
-        <img
-          src="{{ announce.main_image.url }}"
-          alt="{{announce.title}}"
-          class="h-full w-full object-cover rounded-lg"
-        />
+        {% if announce.main_image %}
+          <img
+            src="{{announce.main_image.url}}"
+            alt="{{announce.title}}"
+            class="absolute inset-0 size-full object-cover rounded-md"
+          />
+        {% else %}
+          <img
+            src="{% static 'images/logo_vert.png' %}"
+            alt="Image introuvable"
+            class="absolute inset-0 size-full object-cover rounded-md"
+          />
+        {% endif %}
       </span>
       <!-- ? Zone de contact -->
       <div class="hidden lg:flex flex-col items-center justify-center rounded-md shadow-md shadow-gray-400 p-2 h-fit">

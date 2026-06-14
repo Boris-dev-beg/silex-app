@@ -64,11 +64,19 @@
       >
         <span class="flex max-[340px]:flex-col gap-4 items-center w-full">
           <span class="relative h-28 md:h-35 lg:h-40 lg:w-85 w-45 max-[340px]:h-32 max-[340px]:w-full">
-            <img
-              src="{{announce.main_image.url}}"
-              alt="{{ announce.title }}"
-              class="absolute inset-0 size-full object-cover rounded-md"
-            />
+            {% if announce.main_image %}
+              <img
+                src="{{announce.main_image.url}}"
+                alt="{{announce.title}}"
+                class="absolute inset-0 size-full object-cover rounded-md"
+              />
+            {% else %}
+              <img
+                src="{% static 'images/logo_vert.png' %}"
+                alt="Image introuvable"
+                class="absolute inset-0 size-full object-cover rounded-md"
+              />
+            {% endif %}
           </span>
           <span class="w-full h-full max-[340px]:h-fit flex flex-col gap-2">
             <h1 class="text-gray-900 font-bold text-[17px] md:text-xl lg:text-2xl">
