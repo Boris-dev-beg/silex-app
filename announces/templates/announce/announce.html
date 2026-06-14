@@ -6,9 +6,9 @@
   <div class="grid grid-cols-1 min-[400px]:flex w-full h-auto">
     <span class="relative h-40 min:[340x]:w-50 w-full rounded-md">
       <img
-        src="/media/{{announce.main_image}}"
-        alt="image du meuble"
-        class="absolute inset-0 size-full object-cover rounded-md"
+        src="{{ announce.image.url }}"
+        alt="{{announce.title}}"
+        class="h-full w-full object-cover rounded-lg"
       />
     </span>
     <span class="text-slate-800 flex flex-col justify-between p-2 gap-1 w-full h-40">
